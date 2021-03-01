@@ -6,42 +6,28 @@ alfabeto = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 
-def transformarMensagemEmArray(msg):
-    # Transformando a mensagem a ser criptografada em uma lista
-    arrayMenssagem = []
-
-    # Tratar os espaços vazios
-    for i in list(msg):
-        if i != ' ':
-            arrayMenssagem.append(i)
-    return arrayMenssagem
-
-
-def listToString(s):
-
-    str1 = " "
-
-    return (str1.join(s))
-
-
 def encodeMensagem(valorChave, msg):
     msgEncoded = []
 
-    msgToArray = transformarMensagemEmArray(msg)
-    for letra in msgToArray:
-        posicao = (alfabeto.index(letra) + valorChave) % 52
-        msgEncoded.append(alfabeto[posicao])
-    msgCriptografada = listToString(msgEncoded)
+    for letra in msg:
+        if (letra not in alfabeto):
+            msgEncoded.append(letra)
+        else:
+            posicao = (alfabeto.index(letra) + valorChave) % 52
+            msgEncoded.append(alfabeto[posicao])
+    msgCriptografada = ''.join(msgEncoded)
     return msgCriptografada
 
 
 def decodeMensagem(valorChave, msg):
     msgDecoded = []
-    msgToArray = transformarMensagemEmArray(msg)
-    for letra in msgToArray:
-        posicao = (alfabeto.index(letra) - valorChave) % 52
-        msgDecoded.append(alfabeto[posicao])
-    msgDescriptografada = listToString(msgDecoded)
+    for letra in msg:
+        if (letra not in alfabeto):
+            msgDecoded.append(letra)
+        else:
+            posicao = (alfabeto.index(letra) - valorChave) % 52
+            msgDecoded.append(alfabeto[posicao])
+    msgDescriptografada = ''.join(msgDecoded)
     return msgDescriptografada
 
 
